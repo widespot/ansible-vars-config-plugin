@@ -10,6 +10,14 @@ This is particularly useful in complex environments where variable management is
 
 ## Installation
 
+### From Ansible Galaxy
+
+You can install the collection directly from Ansible Galaxy:
+
+```bash
+ansible-galaxy collection install widespot.vars_config
+```
+
 ### From Source
 
 1. Clone this repository:

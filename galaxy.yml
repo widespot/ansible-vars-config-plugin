@@ -39,16 +39,16 @@ tags: []
 dependencies: {}
 
 # The URL of the originating SCM repository
-repository: https://github.com/widespot/ansible-group-yaml-inventory
+repository: https://github.com/widespot/ansible-vars-config-plugin
 
 # The URL to any online docs
-documentation: https://github.com/widespot/ansible-group-yaml-inventory
+documentation: https://github.com/widespot/ansible-vars-config-plugin
 
 # The URL to the homepage of the collection/project
-homepage: https://github.com/widespot/ansible-group-yaml-inventory
+homepage: https://github.com/widespot/ansible-vars-config-plugin
 
 # The URL to the collection issue tracker
-issues: https://github.com/widespot/ansible-group-yaml-inventory/issue/tracker
+issues: https://github.com/widespot/ansible-vars-config-plugin/issues
 
 # A list of file glob-like patterns used to filter any files or directories that should not be included in the build
 # artifact. A pattern is matched from the relative path of the file or directory of the collection directory. This
@@ -56,3 +56,14 @@ issues: https://github.com/widespot/ansible-group-yaml-inventory/issue/tracker
 # and '.git' are always filtered
 build_ignore:
   - venv
+  - .venv
+  - .github
+  - tests
+  - poetry.lock
+  - pyproject.toml
+  - .gitignore
+  - "*.pyc"
+  - "__pycache__"
+  - .idea
+  - .pytest_cache
+  - "*.tar.gz"
