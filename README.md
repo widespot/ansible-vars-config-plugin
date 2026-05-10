@@ -1,11 +1,11 @@
 # Ansible Vars Config Plugin
 
-This Ansible collection provides a vars plugin called `vars_config` that allows you to load `group_vars` and `host_vars` from custom absolute paths defined in your `ansible.cfg`.
+This Ansible collection provides a vars plugin called `vars_config` that allows you to load `group_vars` and `host_vars` from custom absolute or relative paths defined in your `ansible.cfg`.
 
 ## Description
 
 By default, Ansible looks for `group_vars` and `host_vars` in the same directory as the inventory file or the playbook. 
-This plugin extends that behavior by allowing you to specify external, absolute paths for these variables. 
+This plugin extends that behavior by allowing you to specify absolute or relative paths for these variables. 
 This is particularly useful in complex environments where variable management is centralized or decoupled from the inventory structure.
 
 ## Installation
@@ -38,10 +38,10 @@ host_vars_path = /path/to/your/custom/host_vars
 
 ### Options
 
-| Option            | Description                                                | INI Section   | INI Key           | Type |
-|-------------------|------------------------------------------------------------|---------------|-------------------|------|
-| `group_vars_path` | Absolute path to the directory containing group variables. | `vars_config` | `group_vars_path` | path |
-| `host_vars_path`  | Absolute path to the directory containing host variables.  | `vars_config` | `host_vars_path`  | path |
+| Option            | Description                                                            | INI Section   | INI Key           | Type |
+|-------------------|------------------------------------------------------------------------|---------------|-------------------|------|
+| `group_vars_path` | Absolute or relative path to the directory containing group variables. | `vars_config` | `group_vars_path` | path |
+| `host_vars_path`  | Absolute or relative path to the directory containing host variables.  | `vars_config` | `host_vars_path`  | path |
 
 ## Usage
 
@@ -75,7 +75,7 @@ The integration tests run a sample Ansible playbook that uses the `vars_config` 
 
 ```bash
 # Run the integration test
-ANSIBLE_CONFIG=tests/integration/ansible.cfg ansible-playbook tests/integration/verify.yml
+ANSIBLE_CONFIG=tests/integration/ansible.cfg ansible-playbook tests/integration/playbooks/verify.yml
 cd tests/integration
-ANSIBLE_CONFIG=ansible.cfg ansible-playbook verify.yml
+ANSIBLE_CONFIG=ansible.cfg ansible-playbook playbooks/verify.yml
 ```

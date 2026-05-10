@@ -3,7 +3,16 @@ from __future__ import annotations
 import os
 
 from ansible.errors import AnsibleError, AnsibleParserError
-from ansible.inventory.group import InventoryObjectType
+try:
+    from ansible.inventory.group import InventoryObjectType
+except ImportError:
+    # Ansible < 2.16 compatibility
+    class InventoryObjectType:
+        HOST = "host"
+        GROUP = "group"
+
+from ansible.inventory.host import Host
+from ansible.inventory.group import Group
 from ansible.module_utils.common.text.converters import to_native
 from ansible.plugins.vars import BaseVarsPlugin
 from ansible.utils.vars import combine_vars
@@ -12,20 +21,20 @@ from ansible.utils.vars import combine_vars
 DOCUMENTATION = r"""
 name: vars_config
 version_added: "1.0"
-short_description: Load group_vars and host_vars from configured absolute paths
+short_description: Load group_vars and host_vars from configured absolute or relative paths
 description:
   - Loads group and host vars from paths configured in ansible.cfg.
 options:
   group_vars_path:
     description:
-      - Absolute path to group vars directory.
+      - Absolute or relative path to group vars directory.
     ini:
       - section: vars_config
         key: group_vars_path
     type: path
   host_vars_path:
     description:
-      - Absolute path to host vars directory.
+      - Absolute or relative path to host vars directory.
     ini:
       - section: vars_config
         key: host_vars_path
@@ -78,7 +87,12 @@ class VarsModule(BaseVarsPlugin):
         for entity in entities:
             try:
                 entity_name = entity.name
-                entity_type = entity.base_type
+                if isinstance(entity, Host):
+                    entity_type = InventoryObjectType.HOST
+                elif isinstance(entity, Group):
+                    entity_type = InventoryObjectType.GROUP
+                else:
+                    entity_type = getattr(entity, "base_type", None)
             except AttributeError:
                 raise AnsibleParserError(
                     f"Supplied entity must be Host or Group, got {type(entity)} instead"
