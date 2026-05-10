@@ -1,0 +1,18 @@
+---
+- name: Verify vars_config plugin
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Debug custom vars
+      debug:
+        msg:
+          - "Group var: {{ custom_group_var }}"
+          - "Host var: {{ custom_host_var }}"
+
+    - name: Assert variables are loaded
+      assert:
+        that:
+          - custom_group_var == "loaded from custom group_vars"
+          - custom_host_var == "loaded from custom host_vars"
+        fail_msg: "Custom variables were not loaded correctly!"
+        success_msg: "All custom variables loaded successfully."

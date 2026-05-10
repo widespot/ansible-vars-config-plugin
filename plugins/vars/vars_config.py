@@ -10,7 +10,7 @@ from ansible.utils.vars import combine_vars
 
 
 DOCUMENTATION = r"""
-name: custom_host_group_vars
+name: vars_config
 version_added: "1.0"
 short_description: Load group_vars and host_vars from configured absolute paths
 description:
@@ -20,22 +20,22 @@ options:
     description:
       - Absolute path to group vars directory.
     ini:
-      - section: vars_custom_host_group_vars
+      - section: vars_config
         key: group_vars_path
     type: path
   host_vars_path:
     description:
       - Absolute path to host vars directory.
     ini:
-      - section: vars_custom_host_group_vars
+      - section: vars_config
         key: host_vars_path
     type: path
   stage:
     ini:
-      - section: vars_custom_host_group_vars
+      - section: vars_config
         key: stage
     env:
-      - name: ANSIBLE_CUSTOM_HOST_GROUP_VARS_STAGE
+      - name: ANSIBLE_VARS_CONFIG_STAGE
 extends_documentation_fragment:
   - vars_plugin_staging
 """
@@ -46,7 +46,7 @@ NAK = set()
 
 
 class VarsModule(BaseVarsPlugin):
-    REQUIRES_ENABLED = True
+    # REQUIRES_ENABLED is not supported for collection-based vars plugins
     is_stateless = True
 
     def load_found_files(self, loader, data, found_files):

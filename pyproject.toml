@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "ansible-vars-config-plugin"
+version = "0.1.0"
+description = "Ansible vars plugin to customize group_vars and host_vars paths"
+authors = ["Raphaël JOIE <raphael.joie@widespot.be>"]
+readme = "README.md"
+packages = [{include = "plugins"}]
+
+[tool.poetry.dependencies]
+python = ">=3.12"
+ansible-core = "2.20.5"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
