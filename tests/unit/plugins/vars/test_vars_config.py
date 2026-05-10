@@ -151,6 +151,3 @@ class TestVarsConfig(unittest.TestCase):
         self.loader.find_vars_files.reset_mock()
         self.vars_plugin.get_vars(self.loader, '/some/path', group)
         self.assertEqual(self.loader.find_vars_files.call_count, 0)
-
-if __name__ == '__main__':
-    unittest.main()

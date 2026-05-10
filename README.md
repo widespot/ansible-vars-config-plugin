@@ -66,7 +66,7 @@ You can install dependencies and run the unit tests using `poetry`:
 
 ```bash
 poetry install
-poetry run python3 tests/unit/plugins/vars/test_vars_config.py
+poetry run python3 -m unittest discover -s tests/unit -t .
 ```
 
 #### Integration Tests
