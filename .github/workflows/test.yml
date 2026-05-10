@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       matrix:
         python-version: ["3.12", "3.13"]
@@ -49,3 +51,10 @@ jobs:
     - name: Run integration tests
       run: |
         ANSIBLE_CONFIG=tests/integration/ansible.cfg poetry run ansible-playbook tests/integration/playbooks/verify.yml
+
+    - name: Run integration tests with user config
+      run: |
+        mkdir -p ~/group_vars ~/host_vars
+        cp tests/integration/group_vars/all.yml ~/group_vars/
+        cp tests/integration/host_vars/localhost.yml ~/host_vars/
+        ANSIBLE_CONFIG=tests/integration/ansible-user.cfg poetry run ansible-playbook tests/integration/playbooks/verify.yml
